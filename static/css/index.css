@@ -155,3 +155,253 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+
+
+.video-title {
+  display: flex;
+    justify-content: center;
+    /* Center text horizontally */
+    align-items: center;
+    /* Center text vertically */
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Courier New", Courier, monospace;
+    height: 35px;
+    /* Fixed height to ensure alignment */
+}
+
+
+.refoley-carousel {
+  overflow: hidden;
+  max-width: 780px;
+}
+
+.refoley-carousel .item {
+  margin: 10px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+  /* width: 150%; */
+}
+
+.refoley-carousel video {
+  margin: 0;
+}
+
+
+
+/* Custom container to control layout */
+.custom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Container for video and buttons */
+.custom-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+}
+
+/* Video container */
+.custom-video-container {
+  flex: 2;
+  max-width: 400px;
+}
+
+.custom-video-container-wide {
+  flex: 2;
+  max-width: 600px;
+}
+.custom-video-container-extra-wide {
+  flex: 2;
+  max-width: 700px;
+}
+
+.custom-video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Button Section */
+.custom-button-container {
+  flex: 1;
+}
+
+.custom-button-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .custom-columns {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .custom-video-container {
+    max-width: 100%;
+  }
+
+  .custom-button-area {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* Space between buttons */
+    justify-content: center;
+  }
+
+  .custom-button-area .button {
+    font-size: 0.85rem;
+    width: auto;
+    /* Vary width based on text length */
+    border-radius: 10px;
+    /* Add border radius to buttons */
+  }
+}
+
+/* Desktop Layout */
+@media (min-width: 769px) {
+  .custom-columns {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .custom-button-area {
+    flex-direction: column;
+    /* Stack buttons vertically */
+    justify-content: center;
+  }
+
+  .custom-button-area .button {
+    font-size: 1rem;
+    width: auto;
+    /* Vary width based on text length */
+    border-radius: 10px;
+    /* Add border radius to buttons */
+  }
+}
+
+/* Selected button style */
+.custom-button-area .button.selected {
+  opacity: 1;
+  /* Full opacity for selected button */
+  /* border: 1px solid #a0a0a0; */
+  /* Optional border for selected button */
+}
+
+/* Unselected buttons style */
+.custom-button-area .button:not(.selected) {
+  opacity: 0.4;
+  /* Reduce opacity for unselected buttons */
+}
+
+
+/* General Button Styles */
+.custom-button-area .button {
+  font-family: "Courier New", Courier, monospace;
+  color: black !important;
+  /* Force black text color */
+  font-weight: 600;
+  /* Make text bold */
+  transition: opacity 0.3s ease;
+  /* Smooth opacity change */
+  border: none;
+  /* Remove border for cleaner look */
+  text-shadow: none;
+  /* Remove any unintended shadows */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adds a subtle shadow */
+}
+
+
+/* Softer, Light Colors */
+.custom-button-area .button.is-link {
+  background-color: #E3F2FD;
+  /* Very Light Blue */
+}
+
+.custom-button-area .button.is-link:hover {
+  background-color: #E3F2FD;
+  /* Keep original color on hover */
+  opacity: 0.8;
+  /* Reduce opacity */
+}
+
+.custom-button-area .button.is-primary {
+  background-color: #E8F5E9;
+  /* Very Light Green */
+}
+
+.custom-button-area .button.is-primary:hover {
+  background-color: #E8F5E9;
+  /* Keep original color on hover */
+  opacity: 0.8;
+  /* Reduce opacity */
+}
+
+.custom-button-area .button.is-info {
+  background-color: #FFF3E0;
+  /* Very Light Peach */
+}
+
+.button.is-info:hover {
+  background-color: #FFF3E0;
+  /* Keep original color on hover */
+  opacity: 0.8;
+  /* Reduce opacity */
+}
+
+.custom-button-area .button.is-success {
+  background-color: #F3E5F5;
+  /* Very Light Purple */
+}
+
+.custom-button-area .button.is-success:hover {
+  background-color: #F3E5F5;
+  /* Keep original color on hover */
+  opacity: 0.8;
+  /* Reduce opacity */
+}
+
+/* Border Colors for Selected Buttons */
+
+/* Light Blue (Link) */
+.custom-button-area .button.is-link.selected {
+  border: 2px solid #1E88E5;
+  /* Darker Blue */
+}
+
+/* Light Green (Primary) */
+.custom-button-area .button.is-primary.selected {
+  border: 2px solid #388E3C;
+  /* Darker Green */
+}
+
+/* Light Peach (Info) */
+.custom-button-area .button.is-info.selected {
+  border: 2px solid #FF9800;
+  /* Darker Peach */
+}
+
+/* Light Purple (Success) */
+.custom-button-area .button.is-success.selected {
+  border: 2px solid #9C27B0;
+  /* Darker Purple */
+}
