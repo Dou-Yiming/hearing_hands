@@ -170,7 +170,6 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Abstract</h2>
@@ -191,9 +190,6 @@
           </div>
         </div>
       </div>
-      <!--/ Abstract. -->
-
-      <!--/ Paper video. -->
     </div>
   </section>
 
@@ -310,57 +306,61 @@
     <h4 class="title is-4 has-text-centered" id="">Data Collection Pipeline</h4>
     <div class="columns is-centered">
       <div class="custom-video-container-wide">
-        <video id="teaser" autoplay muted loop playsinline class="custom-video">
-          <source id="video-source" src="./static/videos/data_capturing_fuse.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <p>
-          We capture the interaction videos.
-        </p>
+        <div class="content has-text-justified">
+          <p>
+            The human collector interacts with the scene by performing various actions with their hands.
+            We lift the annotator's hands to the same 3D space of the scene reconstruction.
+            We render a video of the interaction by projecting 3D hands on multiple viewpoints of the scene.
+            All rendered videos are synchronized with the sounds made by the hand actions.
+          </p>
+          <video id="teaser" autoplay muted loop playsinline class="custom-video">
+            <source id="video-source" src="./static/videos/data_capturing_fuse.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
       </div>
     </div>
 
     <h4 class="title is-4 has-text-centered" id="">A Dataset of Interaction-Sound Pairs</h4>
     <div class="columns is-centered">
-      <div class="content has-text-justified">
-        <img src="static/images/dataset_examples.png" width="600px" style="margin-bottom: 10px;"></img>
-        <p>
-        </p>
+      <div class="custom-video-container-wide">
+        <div class="content has-text-justified">
+          <p>
+            Our dataset is collected in 24 scenes, including offices, outdoor trees, bedrooms, etc.
+            We show nine such scenes in the figure above, with examples of action-generated sounds.
+            Our dataset covers a wide range of actions (hitting, scratching, patting, etc.) and interacted
+            materials (wood, metal, plastic, etc.) In each scene, approximately 1,400 seconds of videos are
+            collected, resulting in a total of 9.1 hours of interaction data.
+          </p>
 
-      </div>
-    </div>
-  </section>
+          <img src="static/images/dataset_examples.png" width="600px" style="margin-bottom: 10px;"></img>
 
-  <section class="section" style="margin-top: -30px;">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3 has-text-centered" id="">Generating Action-Conditioned Sounds</h2>
-
-          <h4 class="title is-4 has-text-centered" id="">Method Overview</h4>
-          <div class="columns is-centered">
-            <div class="content has-text-justified">
-              <img src="static/images/method.png" width="300px" style="margin-bottom: 10px;"></img>
-              <p>
-              </p>
-
-            </div>
-          </div>
-
-          <h4 class="title is-4 has-text-centered" id="">Qualitative Results</h4>
-          <div class="columns is-centered">
-            <div class="content has-text-justified">
-              <img src="static/images/qualitative_results.png" width="600px" style="margin-bottom: 10px;"></img>
-              <p>
-              </p>
-
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <section class="section" style="margin-top: -30px;">
+    <h2 class="title is-3 has-text-centered" id="">Generating Action-Conditioned Sound</h2>
+    <h4 class="title is-4 has-text-centered" id="">Method Overview</h4>
+    <div class="columns is-centered">
+      <div class="custom-video-container-wide">
+        <div class="content has-text-justified">
+          <p>
+            We train a rectified flow model to generate a sound spectrogram from a sequence of 3D hand positions
+            and video frames generated from a 3D reconstruction of a scene.
+            The sound can subsequently be converted into a waveform using a vocoder.
+          </p>
+          <center>
+            <img src="static/images/method.png" width="300px" style="margin-bottom: 10px;"></img>
+          </center>
+          <!-- <img src="static/images/dataset_examples.png" width="600px" style="margin-bottom: 10px;"></img> -->
+
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- <section class="section" style="margin-top: -30px;">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
