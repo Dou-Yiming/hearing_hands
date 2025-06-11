@@ -200,7 +200,7 @@
 
 
   <!-- Foley generation with text control-->
-  <!-- <section class="section" style="margin-top: -30px;">
+  <section class="section" style="margin-top: -30px;">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
@@ -212,11 +212,11 @@
               pause.)
             </p>
 
-            <div class="custom-container" id="bird-refoley">
+            <div class="custom-container" id="diningroom">
               <div class="custom-columns">
                 <div class="custom-video-container">
-                  <video id="bird-video-player" unmute playsinline class="custom-video">
-                    <source id="video-source" src="./static/videos/interactive_demo/bedroom2_scratch.mp4#t=0.0001"
+                  <video id="diningroom-video-player" unmute playsinline class="custom-video">
+                    <source id="video-source" src="./static/videos/interactive_demo/knock_diningroom.mp4#t=0.0001"
                       type="video/mp4">
                     Your browser does not support the video tag.
                   </video>
@@ -225,12 +225,74 @@
                 <div class="custom-button-container">
                   <div class="custom-button-area">
                     <button class="button is-link is-small"
-                      onclick="changeVideo('./static/videos/interactive_demo/bedroom2_scratch.mp4', this, 'bird-video-player')">
-                      bird chirping
+                      onclick="changeVideo('./static/videos/interactive_demo/knock_diningroom.mp4', this, 'diningroom-video-player')">
+                      knock
+                    </button>
+                    <button class="button is-info is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/tap_diningroom.mp4', this, 'diningroom-video-player')">
+                      tap
                     </button>
                     <button class="button is-primary is-small"
-                      onclick="changeVideo('./static/videos/interactive_demo/pine1_pat.mp4', this, 'bird-video-player')">
-                      rooster crowing
+                      onclick="changeVideo('./static/videos/interactive_demo/scratch_diningroom.mp4', this, 'diningroom-video-player')">
+                      scratch
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="custom-container" id="lounge2">
+              <div class="custom-columns">
+                <div class="custom-video-container">
+                  <video id="lounge2-video-player" unmute playsinline class="custom-video">
+                    <source id="video-source" src="./static/videos/interactive_demo/knock_lounge2.mp4#t=0.0001"
+                      type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
+                <div class="custom-button-container">
+                  <div class="custom-button-area">
+                    <button class="button is-link is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/knock_lounge2.mp4', this, 'lounge2-video-player')">
+                      knock
+                    </button>
+                    <button class="button is-info is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/tap_lounge2.mp4', this, 'lounge2-video-player')">
+                      tap
+                    </button>
+                    <button class="button is-primary is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/scratch_lounge2.mp4', this, 'lounge2-video-player')">
+                      scratch
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="custom-container" id="pine3">
+              <div class="custom-columns">
+                <div class="custom-video-container">
+                  <video id="pine3-video-player" unmute playsinline class="custom-video">
+                    <source id="video-source" src="./static/videos/interactive_demo/knock_pine3.mp4#t=0.0001"
+                      type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
+                <div class="custom-button-container">
+                  <div class="custom-button-area">
+                    <button class="button is-link is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/knock_pine3.mp4', this, 'pine3-video-player')">
+                      knock
+                    </button>
+                    <button class="button is-info is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/tap_pine3.mp4', this, 'pine3-video-player')">
+                      tap
+                    </button>
+                    <button class="button is-primary is-small"
+                      onclick="changeVideo('./static/videos/interactive_demo/scratch_pine3.mp4', this, 'pine3-video-player')">
+                      scratch
                     </button>
                   </div>
                 </div>
@@ -240,7 +302,7 @@
         </div>
       </div>
     </div>
-  </section> -->
+  </section>
 
   <section class="section" style="margin-top: -30px;">
     <h2 class="title is-3 has-text-centered" id="">Capturing Interaction Videos</h2>
