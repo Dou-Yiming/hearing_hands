@@ -1,0 +1,179 @@
+model:
+  base_learning_rate: 4e-4
+  target: adm.models.diffusion.sd_cfm_maa2_scale_cfg.CFM_MAA2_CFG
+  params:
+    linear_start: 0.00085
+    linear_end: 0.0120
+    num_timesteps_cond: 1
+    log_every_t: 200
+    timesteps: 1000
+    mel_dim: 20
+    mel_length: 250
+    first_stage_key: "mix_spec"
+    cond_stage_key: ["mix_video_feat", "mix_hand_pose"]
+    image_size: 64
+    channels: 0
+    cond_stage_trainable: true
+    conditioning_key: crossattn
+    monitor: val/loss_simple_ema
+    scale_factor: 0.18215
+    use_ema: False
+    model_ckpt_path: ./adm/checkpoints/maa2.ckpt
+
+    scheduler_config: # 10000 warmup steps
+      target: adm.lr_scheduler.LambdaLinearScheduler
+      params:
+        warm_up_steps: [1000]
+        cycle_lengths: [50000] # incredibly large number to prevent corner cases
+        f_start: [1.e-6]
+        f_max: [1.]
+        f_min: [1.e-2]
+
+    unet_config:
+      target: ldm.modules.diffusionmodules.concatDiT.ChannelConcatDiTNoUpsample
+      params:
+        in_channels: 20
+        context_dim: 768
+        hidden_size: 576
+        num_heads: 8
+        depth: 4
+        max_len: 1000
+
+    first_stage_config:
+      target: ldm.models.autoencoder1d.AutoencoderKL
+      params:
+        embed_dim: 20
+        monitor: val/rec_loss
+        ckpt_path: ./adm/checkpoints/pretrained_first_stage.ckpt
+        ddconfig:
+          double_z: true
+          in_channels: 80
+          out_ch: 80
+          z_channels: 20
+          kernel_size: 5
+          ch: 384
+          ch_mult:
+            - 1
+            - 2
+            - 4
+          num_res_blocks: 2
+          attn_layers:
+            - 3
+          down_layers:
+            - 0
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+
+    cond_stage_config:
+      target: adm.modules.cond_stage.video_feat_encoder.Video_Feat_Encoder_TimeUpsample_NoPosembed_HandPose
+      params:
+        cavp_feat_origin_dim: 512
+        clip_feat_origin_dim: 512
+        clip_local_feat_origin_dim: 1024
+        siglip_feat_origin_dim: 1152
+        siglip_local_feat_origin_dim: 2304
+        dino_feat_origin_dim: 1024
+        dino_local_feat_origin_dim: 2048
+        hand_pose_origin_dim: 126
+        embed_dim: 768
+        use_cavp_feat: False
+        use_hand_pose: True
+        use_clip_feat: True
+        use_clip_local_feat: True
+        use_siglip_feat: False
+        use_siglip_local_feat: False
+        use_dino_feat: False
+        use_dino_local_feat: False
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 128 # originally 220
+    num_workers: 4
+    wrap: True
+    train:
+      target: adm.data.video_spec_maa2_dataset.audio_video_spec_fullset_Dataset_Train
+      params:
+        dataset:
+          dataset_name: SaRF
+          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          use_multi_view: True
+
+        use_cavp_feat: False
+        use_hand_pose: True
+        use_clip_feat: True
+        use_clip_local_feat: True
+        use_siglip_feat: False
+        use_siglip_local_feat: False
+        use_dino_feat: False
+        use_dino_local_feat: False
+        sr: 16000
+        duration: 8
+        truncate: 128000 # 8.192*16000
+        fps: 4
+        hop_len: 256
+
+    validation:
+      target: adm.data.video_spec_maa2_dataset.audio_video_spec_fullset_Dataset_Valid
+      params:
+        dataset:
+          dataset_name: SaRF
+          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          use_multi_view: True
+
+        use_cavp_feat: False
+        use_hand_pose: True
+        use_clip_feat: True
+        use_clip_local_feat: True
+        use_siglip_feat: False
+        use_siglip_local_feat: False
+        use_dino_feat: False
+        use_dino_local_feat: False
+        sr: 16000
+        duration: 8
+        truncate: 128000
+        fps: 4
+        hop_len: 256
+
+    test:
+      target: adm.data.video_spec_maa2_dataset.audio_video_spec_fullset_Dataset_Test
+      params:
+        dataset:
+          dataset_name: SaRF
+          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          use_multi_view: True
+
+        use_cavp_feat: False
+        use_hand_pose: True
+        use_clip_feat: True
+        use_clip_local_feat: True
+        use_siglip_feat: False
+        use_siglip_local_feat: False
+        use_dino_feat: False
+        use_dino_local_feat: False
+        sr: 16000
+        duration: 8
+        truncate: 128000
+        fps: 4
+        hop_len: 256
+
+checkpoint:
+  save_every_n_epochs: 100
+
+callback:
+  logger_name: sound_logger
+  target: adm.logger_maa2.SoundLogger_concat_fullset
+  params:
+    train_batch_frequency: 1000000000000000
+    val_batch_frequency: 1000000000000000
+    max_sound_num: 8
+    sr: 16000
+    fps: 4
+    guidance_scale: 6.5
