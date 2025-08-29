@@ -66,9 +66,8 @@ if __name__ == "__main__":
     target_dir = osp.join(log_dir, "gen_wav_16k_80")
     os.makedirs(target_dir, exist_ok=True)
     for mel_file in tqdm(sorted(glob.glob(f"{log_dir}/mel/*.npy"))):
-        wav_file = osp.join(target_dir, mel_file.split("/")[-1].replace(".npy", ".wav"))
-        # if os.path.exists(wav_file):
-        #     continue
+        wav_file = osp.join(target_dir, mel_file.split("/")
+                            [-1].replace(".npy", ".wav"))
         mel_spec = np.load(mel_file)
         sample = vocoder.vocode(mel_spec)
         sf.write(wav_file, sample, 16000)

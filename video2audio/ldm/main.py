@@ -10,41 +10,6 @@ from pytorch_lightning.callbacks import ModelCheckpoint, Callback, LearningRateM
 import time
 from pytorch_lightning.utilities import rank_zero_info
 import numpy as np
-    # model:
-    #   base_learning_rate: float
-    #   target: path to lightning module
-    #   params:
-    #       key: value
-    # data:
-    #   target: main.DataModuleFromConfig
-    #   params:
-    #      batch_size: int
-    #      wrap: bool
-    #      train:
-    #          target: path to train dataset
-    #          params:
-    #              key: value
-    #      validation:
-    #          target: path to validation dataset
-    #          params:
-    #              key: value
-    #      test:
-    #          target: path to test dataset
-    #          params:
-    #              key: value
-    # lightning: (optional, has sane defaults and can be specified on cmdline)
-    #   trainer:
-    #       additional arguments to trainer
-    #   logger:
-    #       logger to instantiate
-    #   modelcheckpoint:
-    #       modelcheckpoint to instantiate
-    #   callbacks:
-    #       callback1:
-    #           target: importpath
-    #           params:
-    #               key: value
-
 
 class CUDACallback(Callback):
     # see https://github.com/SeanNaren/minGPT/blob/master/mingpt/callback.py
@@ -166,42 +131,6 @@ class WrappedDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.data[idx]
-
-    #     is_iterable_dataset = isinstance(self.datasets['train'], Txt2ImgIterableBaseDataset)
-    #     if is_iterable_dataset or self.use_worker_init_fn:
-    #         init_fn = worker_init_fn
-    #     else:
-    #         init_fn = None
-    #     return DataLoader(self.datasets["train"], batch_size=self.batch_size,
-    #                       num_workers=self.num_workers, shuffle=False if is_iterable_dataset else True,
-    #                       worker_init_fn=init_fn)
-
-    # def _val_dataloader(self, shuffle=False):
-    #     if isinstance(self.datasets['validation'], Txt2ImgIterableBaseDataset) or self.use_worker_init_fn:
-    #         init_fn = worker_init_fn
-    #     else:
-    #         init_fn = None
-    #     return DataLoader(self.datasets["validation"],
-    #                       batch_size=self.batch_size,
-    #                       num_workers=self.num_workers,
-    #                       worker_init_fn=init_fn,
-    #                       shuffle=shuffle)
-
-    # def _test_dataloader(self, shuffle=False):
-    #     is_iterable_dataset = isinstance(self.datasets['train'], Txt2ImgIterableBaseDataset)
-    #     if is_iterable_dataset or self.use_worker_init_fn:
-    #         init_fn = worker_init_fn
-    #     else:
-    #         init_fn = None
-
-    #     # do not shuffle dataloader for iterable dataset
-    #     shuffle = shuffle and (not is_iterable_dataset)
-
-    #     return DataLoader(self.datasets["test"], batch_size=self.batch_size,
-    #                       num_workers=self.num_workers, worker_init_fn=init_fn, shuffle=shuffle)
-
-
-
 
 def get_parser(**parser_kwargs):
     def str2bool(v):

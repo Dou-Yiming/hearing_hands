@@ -98,18 +98,13 @@ data:
         dataset:
           dataset_name: SaRF
           data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
           split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
           use_multi_view: True
 
-        use_cavp_feat: False
         use_hand_pose: True
         use_clip_feat: True
         use_clip_local_feat: True
-        use_siglip_feat: False
-        use_siglip_local_feat: False
-        use_dino_feat: False
-        use_dino_local_feat: False
         sr: 16000
         duration: 8
         truncate: 128000 # 8.192*16000
@@ -122,7 +117,7 @@ data:
         dataset:
           dataset_name: SaRF
           data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
           split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
           use_multi_view: True
 
@@ -146,7 +141,7 @@ data:
         dataset:
           dataset_name: SaRF
           data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset # Not Necessary Except for Inference
+          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
           split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
           use_multi_view: True
 
