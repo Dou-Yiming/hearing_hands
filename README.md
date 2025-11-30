@@ -25,7 +25,7 @@ Download the dataset from [this]() link, then extract them:
 
 #### 2. Download pretrained models
 
-Download the pretrained checkpoints from [this]() link, then extract them:
+Download the pretrained checkpoints from [this](https://www.dropbox.com/scl/fi/c9zn9sfzqk3n20vcto3te/checkpoints.tar.gz?rlkey=3mqnw3t0uc21ne5cdw1ceq8hd&st=fc1benyd&dl=0) link, then extract them:
 
 ```sh
 tar -xvf checkpoints.tar.gz ./
