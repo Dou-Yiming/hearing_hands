@@ -1,6 +1,6 @@
 # Hearing Hands: Generating Sounds from Physical Interactions in 3D Scenes
 
-### [Dataset]() · [Checkpoints](https://www.dropbox.com/scl/fi/c9zn9sfzqk3n20vcto3te/checkpoints.tar.gz?rlkey=3mqnw3t0uc21ne5cdw1ceq8hd&st=fc1benyd&dl=0) · [Website](https://www.yimingdou.com/hearing_hands/) · [Paper](https://arxiv.org/abs/2506.09989)
+### [Dataset](https://www.dropbox.com/scl/fi/hvu866qbvqt8qsahdo458/dataset.tar.gz?rlkey=t2a850ggpls7ce58z86txj207&st=s96ae5tj&dl=0) · [Checkpoints](https://www.dropbox.com/scl/fi/c9zn9sfzqk3n20vcto3te/checkpoints.tar.gz?rlkey=3mqnw3t0uc21ne5cdw1ceq8hd&st=fc1benyd&dl=0) · [Website](https://www.yimingdou.com/hearing_hands/) · [Paper](https://arxiv.org/abs/2506.09989)
 
 ##### [Yiming Dou](https://www.yimingdou.com/), [Wonseok Oh](https://prbs5kong.github.io/), [Yuqing Luo](https://www.linkedin.com/in/yuqing-luo-452715249/), [Antonio Loquercio](https://antonilo.github.io/), [Andrew Owens](https://andrewowens.com/)
 
@@ -19,7 +19,7 @@ conda env create -f environment.yml
 
 #### 1. Download dataset
 
-Download the dataset from [this]() link, then extract them:
+Download the dataset from [this](https://www.dropbox.com/scl/fi/hvu866qbvqt8qsahdo458/dataset.tar.gz?rlkey=t2a850ggpls7ce58z86txj207&st=s96ae5tj&dl=0) link, then extract them:
 
 ` tar -xvf dataset.tar.gz video2audio/data/dataset`
 
