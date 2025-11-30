@@ -145,50 +145,25 @@ class Video_Feat_Encoder_NoPosembed(nn.Module):
 class Video_Feat_Encoder_TimeUpsample_NoPosembed_HandPose(nn.Module):
     def __init__(
         self,
-        cavp_feat_origin_dim,
         clip_feat_origin_dim,
         clip_local_feat_origin_dim,
         hand_pose_origin_dim,
-        dino_feat_origin_dim,
-        dino_local_feat_origin_dim,
-        siglip_feat_origin_dim,
-        siglip_local_feat_origin_dim,
         embed_dim,
-        use_cavp_feat,
         use_hand_pose,
         use_clip_feat,
         use_clip_local_feat,
-        use_dino_feat,
-        use_dino_local_feat,
-        use_siglip_feat,
-        use_siglip_local_feat,
     ):
         super().__init__()
 
-        self.use_cavp_feat = use_cavp_feat
         self.use_hand_pose = use_hand_pose
         self.use_clip_feat = use_clip_feat
         self.use_clip_local_feat = use_clip_local_feat
-        self.use_dino_feat = use_dino_feat
-        self.use_dino_local_feat = use_dino_local_feat
-        self.use_siglip_feat = use_siglip_feat
-        self.use_siglip_local_feat = use_siglip_local_feat
 
         input_feat_dim = 0
-        if self.use_cavp_feat:
-            input_feat_dim += cavp_feat_origin_dim
         if self.use_clip_feat:
             input_feat_dim += clip_feat_origin_dim
         if self.use_clip_local_feat:
             input_feat_dim += clip_local_feat_origin_dim
-        if self.use_siglip_feat:
-            input_feat_dim += siglip_feat_origin_dim
-        if self.use_siglip_local_feat:
-            input_feat_dim += siglip_local_feat_origin_dim
-        if self.use_dino_feat:
-            input_feat_dim += dino_feat_origin_dim
-        if self.use_dino_local_feat:
-            input_feat_dim += dino_local_feat_origin_dim
         self.use_video_feat = input_feat_dim > 0
         if self.use_video_feat:
             self.video_feat_embedder = nn.Sequential(
@@ -198,9 +173,6 @@ class Video_Feat_Encoder_TimeUpsample_NoPosembed_HandPose(nn.Module):
             nn.Linear(hand_pose_origin_dim, embed_dim),
         )
 
-        print(
-            f"Use cavp feature: {self.use_cavp_feat}, Use hand pose: {self.use_hand_pose}, Use clip feature: {self.use_clip_feat}, Use clip local feature: {self.use_clip_local_feat}, Use siglip feature: {self.use_siglip_feat}, Use siglip local feature: {self.use_siglip_local_feat}, Use dino feature: {self.use_dino_feat}, Use dino local feature: {self.use_dino_local_feat}"
-        )
         print(f"Input feat dim: {input_feat_dim}")
         self.up_sample = nn.Upsample(size=250, mode="nearest")
 

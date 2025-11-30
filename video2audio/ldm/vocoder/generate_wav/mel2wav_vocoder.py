@@ -58,7 +58,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     vocoder = VocoderBigVGAN(
-        "./bigvgan/", "cuda"
+        "../bigvgan/checkpoints", "cuda"
     )
 
     log_dir = args.log_dir

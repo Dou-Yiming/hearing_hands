@@ -20,11 +20,11 @@ model:
     use_ema: False
     model_ckpt_path: ./adm/checkpoints/maa2.ckpt
 
-    scheduler_config: # 10000 warmup steps
+    scheduler_config:
       target: adm.lr_scheduler.LambdaLinearScheduler
       params:
         warm_up_steps: [1000]
-        cycle_lengths: [50000] # incredibly large number to prevent corner cases
+        cycle_lengths: [50000]
         f_start: [1.e-6]
         f_max: [1.]
         f_min: [1.e-2]
@@ -68,28 +68,18 @@ model:
     cond_stage_config:
       target: adm.modules.cond_stage.video_feat_encoder.Video_Feat_Encoder_TimeUpsample_NoPosembed_HandPose
       params:
-        cavp_feat_origin_dim: 512
         clip_feat_origin_dim: 512
         clip_local_feat_origin_dim: 1024
-        siglip_feat_origin_dim: 1152
-        siglip_local_feat_origin_dim: 2304
-        dino_feat_origin_dim: 1024
-        dino_local_feat_origin_dim: 2048
         hand_pose_origin_dim: 126
         embed_dim: 768
-        use_cavp_feat: False
         use_hand_pose: True
         use_clip_feat: True
         use_clip_local_feat: True
-        use_siglip_feat: False
-        use_siglip_local_feat: False
-        use_dino_feat: False
-        use_dino_local_feat: False
 
 data:
   target: main.DataModuleFromConfig
   params:
-    batch_size: 128 # originally 220
+    batch_size: 128
     num_workers: 4
     wrap: True
     train:
@@ -97,9 +87,9 @@ data:
       params:
         dataset:
           dataset_name: SaRF
-          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
-          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          data_dir: ../data/dataset
+          video_dir: ../data/dataset 
+          split_path: ../data/split/split.json
           use_multi_view: True
 
         use_hand_pose: True
@@ -116,19 +106,14 @@ data:
       params:
         dataset:
           dataset_name: SaRF
-          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
-          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          data_dir: ../data/dataset
+          video_dir: ../data/dataset 
+          split_path: ../data/split/split.json
           use_multi_view: True
 
-        use_cavp_feat: False
         use_hand_pose: True
         use_clip_feat: True
         use_clip_local_feat: True
-        use_siglip_feat: False
-        use_siglip_local_feat: False
-        use_dino_feat: False
-        use_dino_local_feat: False
         sr: 16000
         duration: 8
         truncate: 128000
@@ -140,19 +125,14 @@ data:
       params:
         dataset:
           dataset_name: SaRF
-          data_dir: /home/ymdou/SaRF/data_capture/DATA/dataset
-          video_dir: /home/ymdou/SaRF/data_capture/DATA/dataset 
-          split_path: /home/ymdou/SaRF/data_capture/DATA/split/split_cross_video_final.json
+          data_dir: ../data/dataset
+          video_dir: ../data/dataset 
+          split_path: ../data/split/split.json
           use_multi_view: True
 
-        use_cavp_feat: False
         use_hand_pose: True
         use_clip_feat: True
         use_clip_local_feat: True
-        use_siglip_feat: False
-        use_siglip_local_feat: False
-        use_dino_feat: False
-        use_dino_local_feat: False
         sr: 16000
         duration: 8
         truncate: 128000
@@ -166,9 +146,14 @@ callback:
   logger_name: sound_logger
   target: adm.logger_maa2.SoundLogger_concat_fullset
   params:
-    train_batch_frequency: 1000000000000000
-    val_batch_frequency: 1000000000000000
+    train_batch_frequency: 10000000
+    val_batch_frequency: 10000000
     max_sound_num: 8
     sr: 16000
     fps: 4
     guidance_scale: 6.5
+
+    vocoder_cfg:
+      target: vocoder.bigvgan.models.VocoderBigVGAN
+      params:
+        ckpt_vocoder: /nfs/turbo/coe-ahowens-nobackup/okong/checkpoints/bigvgan

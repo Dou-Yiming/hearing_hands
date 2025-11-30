@@ -148,20 +148,10 @@ class CFM_MAA2_CFG(DDPM):
         # zero embedding:
         # self.zero_embed = nn.Parameter(torch.randn(1, 32, ))
         video_cond_dim = 0
-        if self.cond_stage_model.use_cavp_feat:
-            video_cond_dim += 512
         if self.cond_stage_model.use_clip_feat:
             video_cond_dim += 512
         if self.cond_stage_model.use_clip_local_feat:
             video_cond_dim += 1024
-        if self.cond_stage_model.use_dino_feat:
-            video_cond_dim += 1024
-        if self.cond_stage_model.use_dino_local_feat:
-            video_cond_dim += 2048
-        if self.cond_stage_model.use_siglip_feat:
-            video_cond_dim += 1152
-        if self.cond_stage_model.use_siglip_local_feat:
-            video_cond_dim += 2304
         
         self.zero_embed = torch.zeros(
             1, video_cond_len, video_cond_dim)               # Zeros Embedding

@@ -1,4 +1,6 @@
-experiment_name=""
+experiment_name="sarf_full"
+
+export CUDA_VISIBLE_DEVICES=0
 
 python generate_mel_cfg_hand_pose.py \
     --log_dir ../logs/$experiment_name \

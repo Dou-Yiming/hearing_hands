@@ -109,10 +109,6 @@ def generate_mel(ldm_config_path, ldm_log_dir, gpus, timesteps, solver):
     mel_path_list = [
         osp.join(data_dir, scene, "mel", item + ".npy") for scene, item in data_items
     ]
-    cavp_path_list = [
-        osp.join(data_dir, scene, "cavp_features", item + ".npz")
-        for scene, item in data_items
-    ]
     # st()
     hand_pose_path_list = [
         osp.join(
@@ -136,63 +132,32 @@ def generate_mel(ldm_config_path, ldm_log_dir, gpus, timesteps, solver):
         osp.join(data_dir, scene, "clip_features_local", item + ".npy")
         for scene, item in data_items
     ]
-    siglip_list = [
-        osp.join(data_dir, scene, "siglip_features", item + ".npy")
-        for scene, item in data_items
-    ]
-    siglip_local_list = [
-        osp.join(data_dir, scene, "siglip_features_local", item + ".npy")
-        for scene, item in data_items
-    ]
-    dino_list = [
-        osp.join(data_dir, scene, "dinov2_features", item + ".npy")
-        for scene, item in data_items
-    ]
-    dino_local_list = [
-        osp.join(data_dir, scene, "dinov2_features_local", item + ".npy")
-        for scene, item in data_items
-    ]
     video_list = [
         osp.join(data_dir, scene, "hamer_videos_truncated", item + ".mp4")
         for scene, item in data_items
     ]
 
-    for cavp_path, gt_mel_path, hand_pose_path, video_path, clip_path, clip_local_path, siglip_path, siglip_local_path, dino_path, dino_local_path in tqdm(
-        zip(cavp_path_list, mel_path_list, hand_pose_path_list, video_list, clip_list,
-            clip_local_list, siglip_list, siglip_local_list, dino_list, dino_local_list),
+    for gt_mel_path, hand_pose_path, video_path, clip_path, clip_local_path in tqdm(
+        zip(mel_path_list, hand_pose_path_list, video_list, clip_list,
+            clip_local_list),
         desc="Data:",
-        total=len(cavp_path_list),
+        total=len(mel_path_list),
     ):
 
         cur_mel_path = osp.join(
-            save_mel_path, cavp_path.split("/")[-1].replace(".npz", ".npy")
+            save_mel_path, gt_mel_path.split("/")[-1].replace(".npy", ".npy")
         )
         cur_mel_image_path = osp.join(
-            save_mel_img_path, cavp_path.split("/")[-1].replace(".npz", ".png")
+            save_mel_img_path, gt_mel_path.split("/")[-1].replace(".npy", ".png")
         )
 
         video_feat = []
-        if config.model.params.cond_stage_config.params.use_cavp_feat:
-            cavp_feats = np.load(cavp_path)["arr_0"]
-            video_feat.append(cavp_feats)
         if config.model.params.cond_stage_config.params.use_clip_feat:
             clip_feats = np.load(clip_path)
             video_feat.append(clip_feats)
         if config.model.params.cond_stage_config.params.use_clip_local_feat:
             clip_local_feats = np.load(clip_local_path)
             video_feat.append(clip_local_feats)
-        if config.model.params.cond_stage_config.params.use_siglip_feat:
-            siglip_feats = np.load(siglip_path)
-            video_feat.append(siglip_feats)
-        if config.model.params.cond_stage_config.params.use_siglip_local_feat:
-            siglip_local_feats = np.load(siglip_local_path)
-            video_feat.append(siglip_local_feats)
-        if config.model.params.cond_stage_config.params.use_dino_feat:
-            dino_feats = np.load(dino_path)
-            video_feat.append(dino_feats)
-        if config.model.params.cond_stage_config.params.use_dino_local_feat:
-            dino_local_feats = np.load(dino_local_path)
-            video_feat.append(dino_local_feats)
         if len(video_feat) == 0:
             video_feat.append(np.zeros((truncate_len, 0)))
         video_feat = np.concatenate(video_feat, axis=1)
