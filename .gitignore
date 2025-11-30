@@ -180,7 +180,6 @@ events.out.*
 
 # Data
 nerfstudio_modules/data
-split.json
 !*/data
 
 # Misc
